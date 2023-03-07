@@ -1,0 +1,23 @@
+# Datei: db/postgres/docker-compose.yml
+version: "3"
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_PASSWORD: sml12345
+      POSTGRES_DB: uebungsdatenbank
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+      - pgdata:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 5050:80
+    volumes:
+      - pgadmindata:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@sluz.ch
+      PGADMIN_DEFAULT_PASSWORD: sml12345
+volumes:
+  pgdata:
+  pgadmindata:

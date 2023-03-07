@@ -1,0 +1,16 @@
+# Datei: db/postgres/docker-compose.backup.yml
+version: "3"
+services:
+  backup:
+    image: postgres:13-alpine
+    depends_on:
+      - db
+    volumes:
+      - backup_vol:/backup
+    command: >
+      pg_dump --host db -F c -f /backup/uebungsdatenbank.dump
+      --username=postgres uebungsdatenbank
+    environment:
+      PGPASSWORD: sml12345
+volumes:
+  backup_vol:
